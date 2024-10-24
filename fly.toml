@@ -1,19 +1,21 @@
+# fly.toml app configuration file generated for nixflymc on 2024-10-24T15:42:52-05:00
+#
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
 app = 'nixflymc'
 primary_region = 'den'
 
 [[services]]
+  protocol = ''
   internal_port = 25565
-  auto_stop_machines = "suspend"
   auto_start_machines = true
   min_machines_running = 0
 
 [[services.ports]]
-  port = 25565
+    port = 25565
 
 [[vm]]
-  memory = "4GB"
+  memory = '4GB'
+  cpu_kind = 'shared'
   cpus = 2
-  cpu_kind = "shared"
-
