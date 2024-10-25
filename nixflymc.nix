@@ -3,14 +3,14 @@
     name = "nixflymc-static";
     version = "0.0.0";
     src = ./.;
-    buildInputs = [
-    ];
-    buildPhase = ''
-      mkdir root
-    '';
-    installPhase = ''
-      mkdir $out
-    '';
+    # buildInputs = [
+    # ];
+    # buildPhase = ''
+    #   mkdir root
+    # '';
+    # installPhase = ''
+    #   mkdir $out
+    # '';
   };
 in writeShellScriptBin "nixflymc" ''
   echo Hello, World!
