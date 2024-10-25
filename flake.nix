@@ -11,50 +11,40 @@
     version = "0.0.0";
   in utils.lib.eachDefaultSystem (
     system: let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { inherit system; };
     in rec {
-      packages.${name} = pkgs.callPackage ./${name}.nix {};
-
-      apps.deploy = utils.lib.mkApp {
-        name = "deploy-${name}";
-        drv = pkgs.writeShellScriptBin "deploy-${name}" ''
-          set -euxo pipefail
-          export PATH="${nixpkgs.lib.makeBinPath [ (pkgs.docker.override { clientOnly = true; }) pkgs.flyctl ]}:$PATH"
-          archive=${self.defaultDockerContainer.x86_64-linux}
-          config=fly.toml
-
-          image=$(docker load < $archive | awk '{ print $3; }')
-          flyctl deploy -c $config -i $image
-        '';
+      packages = {
+        server = pkgs.callPackage ./src/server.nix {};
+        build = pkgs.callPackage ./src/build.nix {};
+        deploy = pkgs.callPackage ./src/deploy.nix {};
+        default = packages.server
       };
-
-      apps.${name} = utils.lib.mkApp {
-        inherit name;
-        drv = packages.${name};
-      };
-
-      dockerContainers.${name} = pkgs.dockerTools.buildLayeredImage {
-        name = "${name}-container";
-        tag = "${version}";
-        contents = [
-          packages.${name}
-        ];
-        config = {
-          Cmd = [ apps.${name}.program ];
-          ExposedPorts = {
-            "25565/tcp" = {};
-          };
+      apps = {
+        server = utils.lib.mkApp {
+          name = "${name}-server";
+          drv = packages.server;
         };
+        build = utils.lib.mkApp {
+          name = "${name}-build";
+          drv = packages.build;
+        };
+        deploy = utils.lib.mkApp {
+          name = "${name}-deploy";
+          drv = packages.deploy;
+        };
+        default = apps.server;
       };
-
-      defaultPackage = packages.${name};
-      defaultApp = apps.${name};
-      defaultDockerContainer = dockerContainers.${name};
-
+      dockerImages = {
+        server = pkgs.callPackage ./src/server-container.nix {
+          name = "${name}-server-container";
+          tag = "${version}";
+        };
+        default = dockerImages.server;
+      };
       devShells.default = pkgs.mkShell {
         packages = [
+          pkgs.docker
+          pkgs.skopeo
           pkgs.flyctl
         ];
       };

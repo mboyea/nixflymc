@@ -12,7 +12,8 @@ This project is not yet complete. No documentation is available.
 
 ### TOOD
 
-- Make GitHub Actions resolve nixflymc-container docker image
+- Make manual build process you can step through with nix build && nix run
+- Make GitHub Actions trigger the build process when you push to main branch
 - Configure nixflymc.nix to require https://github.com/Infinidoge/nix-minecraft
 - Configure nixflymc.nix to start a minecraft server
 - Test that Minecraft works
