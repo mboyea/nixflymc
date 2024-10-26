@@ -12,8 +12,8 @@ This project is not yet complete. No documentation is available.
 
 ### TODO
 
-- Finish server.nix derivation that you can execute by `nix run .` that calls `echo "Hello, you big bad world!" && exit $?`
-- Make manual build process you can step through with nix build && nix run
+- Make build command you can trigger with `nix run .#build`
+- Make deploy command you can trigger with `nix run .#deploy`
 - Make GitHub Actions trigger the build process when you push to main branch
 - Configure nixflymc.nix to require https://github.com/Infinidoge/nix-minecraft
 - Configure nixflymc.nix to start a minecraft server
