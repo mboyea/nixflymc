@@ -22,6 +22,7 @@
           name = "${name}-deploy";
           inherit version;
           image = dockerImages.default;
+          flyConfig = "./fly.toml";
         };
         default = packages.server;
       };
@@ -40,7 +41,7 @@
       };
       devShells.default = pkgs.mkShell {
         packages = [
-          pkgs.docker
+          pkgs.podman
           pkgs.skopeo
           pkgs.flyctl
         ];

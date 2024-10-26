@@ -1,16 +1,114 @@
-{ pkgs, image, name, version ? "latest" } : pkgs.writeShellApplication {
+{ pkgs, name, version ? "latest", image, flyConfig ? "fly.toml" } : pkgs.writeShellApplication {
   name = "${name}-${version}";
   runtimeInputs = [
     image
-    pkgs.docker
+    flyConfig
+    # ? pkgs.docker
+    # ! export PATH="${nixpkgs.lib.makeBinPath [ (pkgs.docker.override { clientOnly = true; }) pkgs.flyctl ]}:$PATH"
+    # ! archive=${self.defaultDockerContainer.x86_64-linux}
+    # ! image=$(docker load < $archive | awk '{ print $3; }')
     pkgs.skopeo
     pkgs.flyctl
   ];
   text = ''
+    #!/usr/bin/env bash
+
+    set -euxo pipefail
+
+    echoerror() { echo "Error:" "$@" 1>&2; }
+
+    load_env() {
+      if [ -r .env ]; then
+        set -a
+        # shellcheck disable=SC1091
+        source .env
+        set +a
+      fi
+    }
+
+    test_env() {
+      while [[ $# -gt 0 ]]; do
+        if [ -z "$1" ]; then
+          echoerror The required environment variable "$1" is not defined
+          exit 1
+        fi
+        shift
+      done
+    }
+
+    # update_docker_image() {
+    #   skopeo copy "${image}" "docker://docker.io/$DOCKER_USERNAME/${name}:${version}"
+    # }
+
+    # deploy_to_fly() {
+    #   flyctl deploy -c ${flyConfig} -i ${image}
+    # }
+
+    load_env
+    test_env DOCKER_USERNAME DOCKER_PASSWORD FLY_API_TOKEN
+    # update_docker_image
+    # deploy_to_fly
+
     echo "I should deploy the app!"
     exit 0
   '';
 }
+
+# { pkgs, name, version ? "latest", image, flyConfig ? "fly.toml" } : pkgs.writeShellApplication {
+#   name = "${name}-${version}";
+#   runtimeInputs = [
+#     image
+#     flyConfig
+#     # ? pkgs.docker
+#     # ! export PATH="${nixpkgs.lib.makeBinPath [ (pkgs.docker.override { clientOnly = true; }) pkgs.flyctl ]}:$PATH"
+#     # ! archive=${self.defaultDockerContainer.x86_64-linux}
+#     # ! image=$(docker load < $archive | awk '{ print $3; }')
+#     pkgs.skopeo
+#     pkgs.flyctl
+#   ];
+#   text = ''
+#     #!/usr/bin/env bash
+# 
+#     set -euxo pipefail
+# 
+#     echoerror() { echo "Error:" "$@" 1>&2; }
+# 
+#     load_env() {
+#       if [ -r .env ]; then
+#         set -a
+#         # shellcheck disable=SC1091
+#         source .env
+#         set +a
+#       fi
+#     }
+# 
+#     test_env() {
+#       while [[ $# -gt 0 ]]; do
+#         if [ -z "$1" ]; then
+#           echoerror The required environment variable "$1" is not defined
+#           exit 1
+#         fi
+#         shift
+#       done
+#     }
+# 
+#     # update_docker_image() {
+#     #   skopeo copy "${image}" "docker://docker.io/$DOCKER_USERNAME/${name}:${version}"
+#     # }
+# 
+#     # deploy_to_fly() {
+#     #   flyctl deploy -c ${flyConfig} -i ${image}
+#     # }
+# 
+#     load_env
+#     test_env DOCKER_USERNAME DOCKER_PASSWORD FLY_API_TOKEN
+#     # update_docker_image
+#     # deploy_to_fly
+# 
+#     echo "I should deploy the app!"
+#     exit 0
+#   '';
+# }
 
 # { writeShellApplication, name ? "server", version } : writeShellApplication {
 #   name = "${name}-${version}";

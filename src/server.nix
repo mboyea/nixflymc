@@ -3,6 +3,8 @@
   runtimeInputs = [];
   text = ''
     echo "Hello, you big bad world!"
+    echo "I'm going to sleep."
+    sleep infinity
     exit 0
   '';
 }
