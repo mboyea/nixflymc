@@ -1,5 +1,5 @@
-{ dockerTools, name, version }: dockerTools.buildLayeredImage {
-  inherit name version;
+{ dockerTools, name, tag, packages, apps }: dockerTools.buildLayeredImage {
+  inherit name tag;
   contents = [ packages.server ];
   config = {
     Cmd = [ apps.server.program ];
@@ -7,5 +7,5 @@
       "25565/tcp" = {};
     };
   };
-};
+}
 

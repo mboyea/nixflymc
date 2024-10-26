@@ -1,3 +1,27 @@
+{ pkgs, image, name, version ? "latest" } : pkgs.writeShellApplication {
+  name = "${name}-${version}";
+  runtimeInputs = [
+    image
+    pkgs.docker
+    pkgs.skopeo
+    pkgs.flyctl
+  ];
+  text = ''
+    echo "I should deploy the app!"
+    exit 0
+  '';
+}
+
+# { writeShellApplication, name ? "server", version } : writeShellApplication {
+#   name = "${name}-${version}";
+#   runtimeInputs = [];
+#   text = ''
+#     echo "Hello, you big bad world!"
+#     exit 0
+#   '';
+# }
+
+# { stdenv, name ? "server", version }: stdenv.mkDerivation {
       # apps.deploy = utils.lib.mkApp {
       #   name = "deploy-${name}";
       #   drv = pkgs.writeShellScriptBin "deploy-${name}" ''

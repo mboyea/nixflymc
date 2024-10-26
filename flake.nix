@@ -18,27 +18,24 @@
           name = "${name}-server";
           inherit version;
         };
-        # build = pkgs.callPackage ./src/build.nix {
-        #   name = "${name}-build";
-        #   version = "0.0.0";
-        # };
-        # deploy = pkgs.callPackage ./src/deploy.nix {
-        #   name = "${name}-deploy";
-        #   version = "0.0.0";
-        # };
+        deploy = pkgs.callPackage ./src/deploy.nix {
+          name = "${name}-deploy";
+          inherit version;
+          image = dockerImages.default;
+        };
         default = packages.server;
       };
       dockerImages = {
         server = pkgs.callPackage ./src/server-container.nix {
           name = "${name}-server-container";
           tag = "${version}";
+          inherit packages apps;
         };
         default = dockerImages.server;
       };
       apps = {
         server = utils.lib.mkApp { drv = packages.server; };
-        # build = utils.lib.mkApp { drv = packages.build; };
-        # deploy = utils.lib.mkApp { drv = packages.deploy; };
+        deploy = utils.lib.mkApp { drv = packages.deploy; };
         default = apps.server;
       };
       devShells.default = pkgs.mkShell {
