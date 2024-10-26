@@ -10,14 +10,36 @@ default_: report
 
 This project is not yet complete. No documentation is available.
 
-### TOOD
+### TODO
 
+- Finish server.nix derivation that you can execute by `nix run .` that calls `echo "Hello, you big bad world!" && exit $?`
 - Make manual build process you can step through with nix build && nix run
 - Make GitHub Actions trigger the build process when you push to main branch
 - Configure nixflymc.nix to require https://github.com/Infinidoge/nix-minecraft
 - Configure nixflymc.nix to start a minecraft server
 - Test that Minecraft works
 - Configure fly.io to maintain persitant storage in the minecraft worldfile directory
+
+### References
+
+#### CI/CD
+
+- https://docs.docker.com/build/ci/github-actions/share-image-jobs/
+- https://nix.dev/guides/recipes/continuous-integration-github-actions
+- https://github.com/DeterminateSystems/magic-nix-cache-action
+
+#### Nix
+
+- https://discourse.nixos.org/t/advice-on-packaging-an-app-with-a-nix-flake-nix-run/19192
+
+#### Misc
+
+- https://github.com/LutrisEng/nix-fly-template
+- https://www.youtube.com/watch?v=5XY3K8DH55M
+
+
+#### 
+
 
 ### Contribute
 

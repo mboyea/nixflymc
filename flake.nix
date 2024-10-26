@@ -14,25 +14,19 @@
       pkgs = import nixpkgs { inherit system; };
     in rec {
       packages = {
-        server = pkgs.callPackage ./src/server.nix {};
-        build = pkgs.callPackage ./src/build.nix {};
-        deploy = pkgs.callPackage ./src/deploy.nix {};
-        default = packages.server
-      };
-      apps = {
-        server = utils.lib.mkApp {
+        server = pkgs.callPackage ./src/server.nix {
           name = "${name}-server";
-          drv = packages.server;
+          inherit version;
         };
-        build = utils.lib.mkApp {
-          name = "${name}-build";
-          drv = packages.build;
-        };
-        deploy = utils.lib.mkApp {
-          name = "${name}-deploy";
-          drv = packages.deploy;
-        };
-        default = apps.server;
+        # build = pkgs.callPackage ./src/build.nix {
+        #   name = "${name}-build";
+        #   version = "0.0.0";
+        # };
+        # deploy = pkgs.callPackage ./src/deploy.nix {
+        #   name = "${name}-deploy";
+        #   version = "0.0.0";
+        # };
+        default = packages.server;
       };
       dockerImages = {
         server = pkgs.callPackage ./src/server-container.nix {
@@ -40,6 +34,12 @@
           tag = "${version}";
         };
         default = dockerImages.server;
+      };
+      apps = {
+        server = utils.lib.mkApp { drv = packages.server; };
+        # build = utils.lib.mkApp { drv = packages.build; };
+        # deploy = utils.lib.mkApp { drv = packages.deploy; };
+        default = apps.server;
       };
       devShells.default = pkgs.mkShell {
         packages = [
