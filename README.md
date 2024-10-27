@@ -12,7 +12,6 @@ This project is not yet complete. No documentation is available.
 
 ### TODO
 
-- Make `nix run .#deploy` push the software to fly.io
 - Make GitHub Actions trigger the build process when you push to main branch
 - Configure nixflymc.nix to require https://github.com/Infinidoge/nix-minecraft
 - Configure nixflymc.nix to start a minecraft server

@@ -16,6 +16,6 @@ primary_region = 'den'
     port = 25565
 
 [[vm]]
-  memory = '4GB'
+  memory = '2GB'
   cpu_kind = 'shared'
-  cpus = 2
+  cpus = 1
