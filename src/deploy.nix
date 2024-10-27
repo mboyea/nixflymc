@@ -35,9 +35,7 @@
     }
 
     update_docker_image() {
-      # skopeo --insecure-policy copy "tarball:${image}" "docker://docker.io/$DOCKER_USERNAME/${name}:${version}"
-      # skopeo --insecure-policy copy ":${image}" "docker://docker.io/$DOCKER_USERNAME/${name}:${version}"
-      echo TODO: skopeo copy
+      skopeo --insecure-policy copy --dest-creds="$DOCKER_USERNAME:$DOCKER_PASSWORD" "tarball:${image}" "docker://docker.io/$DOCKER_USERNAME/${name}:${version}"
     }
 
     deploy_to_fly() {

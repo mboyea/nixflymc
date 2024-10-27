@@ -18,21 +18,18 @@
           name = "${name}-server";
           inherit version;
         };
-        deploy = pkgs.callPackage ./src/deploy.nix {
-          name = "${name}-deploy";
-          inherit version;
-          image = dockerImages.default;
-          flyConfig = "./fly.toml";
-        };
-        default = packages.server;
-      };
-      dockerImages = {
-        server = pkgs.callPackage ./src/server-container.nix {
-          name = "${name}-server-container";
+        serverImage = pkgs.callPackage ./src/server-image.nix {
+          name = "${name}-server-image";
           tag = "${version}";
           inherit packages apps;
         };
-        default = dockerImages.server;
+        deploy = pkgs.callPackage ./src/deploy.nix {
+          name = "${name}-deploy";
+          inherit version;
+          image = packages.serverImage;
+          flyConfig = "./fly.toml";
+        };
+        default = packages.server;
       };
       apps = {
         server = utils.lib.mkApp { drv = packages.server; };
