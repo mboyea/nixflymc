@@ -15,17 +15,13 @@
     in rec {
       packages = {
         server = pkgs.callPackage ./src/server.nix {
-          name = "${name}-server";
-          inherit version;
+          inherit name version;
         };
         serverImage = pkgs.callPackage ./src/server-image.nix {
-          name = "${name}-server-image";
-          tag = "${version}";
-          inherit packages apps;
+          inherit name version packages apps;
         };
         deploy = pkgs.callPackage ./src/deploy.nix {
-          name = "${name}-deploy";
-          inherit version;
+          inherit name version;
           image = packages.serverImage;
           flyConfig = "./fly.toml";
         };

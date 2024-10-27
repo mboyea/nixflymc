@@ -1,5 +1,5 @@
 { pkgs, name, version ? "latest", image, flyConfig ? "fly.toml" } : pkgs.writeShellApplication {
-  name = "${name}-${version}";
+  name = "${name}-deploy-${version}";
   runtimeInputs = [
     image
     flyConfig

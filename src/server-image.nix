@@ -1,5 +1,6 @@
-{ dockerTools, name, tag, packages, apps }: dockerTools.buildLayeredImage {
-  inherit name tag;
+{ dockerTools, name, version, packages, apps }: dockerTools.buildLayeredImage {
+  name = "${name}-server-image";
+  tag = "${version}";
   contents = [ packages.server ];
   config = {
     Cmd = [ apps.server.program ];

@@ -1,5 +1,5 @@
-{ writeShellApplication, name ? "server", version } : writeShellApplication {
-  name = "${name}-${version}";
+{ writeShellApplication, name, version } : writeShellApplication {
+  name = "${name}-server-${version}";
   runtimeInputs = [];
   text = ''
     echo "Hello, you big bad world!"
