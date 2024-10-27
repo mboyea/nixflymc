@@ -38,7 +38,7 @@ This project is not yet complete. No documentation is available.
 
 | command | description |
 |:--- |:--- |
-| `nix run .` | run the server |
+| `nix run` | run the server |
 | `nix run .#deploy` | deploy the server to fly.io |
 | `nix build .#dockerImages.x86_64-linux.default` | build the docker server image |
 
