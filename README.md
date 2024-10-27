@@ -12,7 +12,8 @@ This project is not yet complete. No documentation is available.
 
 ### TODO
 
-- Make `nix fun .#deploy` push the software to fly.io
+- Make `nix run .#deploy` push the image to docker.io
+- Make `nix run .#deploy` push the software to fly.io
 - Make GitHub Actions trigger the build process when you push to main branch
 - Configure nixflymc.nix to require https://github.com/Infinidoge/nix-minecraft
 - Configure nixflymc.nix to start a minecraft server
@@ -36,9 +37,13 @@ This project is not yet complete. No documentation is available.
 - https://github.com/LutrisEng/nix-fly-template
 - https://www.youtube.com/watch?v=5XY3K8DH55M
 
+### Scripts
 
-#### 
-
+| command | description |
+|:--- |:--- |
+| `nix run .` | run the server |
+| `nix run .#deploy` | deploy the server to fly.io |
+| `nix build .#dockerImages.x86_64-linux.default` | build the docker server image |
 
 ### Contribute
 
