@@ -1,11 +1,6 @@
-{ writeShellApplication, name, version } : writeShellApplication {
-  name = "${name}-server-${version}";
-  runtimeInputs = [];
-  text = ''
-    echo "Hello, you big bad world!"
-    echo "I'm going to sleep."
-    tail -f /dev/null
-    exit 0
-  '';
+{ stdenv, name, version, system, nix-minecraft } : stdenv.mkDerivation {
+  pname = "${name}-server";
+  inherit version;
+  src = nix-minecraft.packages.${system}.vanilla-server;
 }
 

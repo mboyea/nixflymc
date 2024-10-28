@@ -1,3 +1,8 @@
-result
 .env
+/result
+/eula.txt
+/libraries
+/logs
+/versions
+/server.properties
 

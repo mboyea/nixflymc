@@ -4,9 +4,10 @@
   # get new revision numbers using: git ls-remote https://github.com/<repo_path> | grep HEAD
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    utils.url = "github:numtide/flake-utils?rev=c1dfcf08411b08f6b8615f7d8971a2bfa81d5e8a";
+    utils.url = "github:numtide/flake-utils";
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
-  outputs = { self, nixpkgs, utils, ... }: let
+  outputs = { self, nixpkgs, utils, nix-minecraft, ... }: let
     name = "nixflymc";
     version = "0.0.0";
   in utils.lib.eachDefaultSystem (
@@ -14,9 +15,10 @@
       pkgs = import nixpkgs { inherit system; };
     in rec {
       packages = {
-        server = pkgs.callPackage ./src/server.nix {
-          inherit name version;
-        };
+        server = nix-minecraft.packages.${system}.vanilla-server;
+        # server = pkgs.callPackage ./src/server.nix {
+        #   inherit name version system nix-minecraft;
+        # };
         serverImage = pkgs.callPackage ./src/server-image.nix {
           inherit name version packages apps;
         };
