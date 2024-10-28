@@ -4,5 +4,11 @@
 /libraries
 /logs
 /versions
+/world
 /server.properties
+/whitelist.json
+/banned-ips.json
+/banned-players.json
+/ops.json
+/usercache.json
 
