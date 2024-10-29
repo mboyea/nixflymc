@@ -12,9 +12,9 @@ This project is not yet complete. No documentation is available.
 
 ### TODO
 
-- Configure nixflymc.nix to require https://github.com/Infinidoge/nix-minecraft
-- Configure nixflymc.nix to start a minecraft server
-- Test that Minecraft works
+- Set the default configuration of the Nix server (particularly eula=true)
+- Test server is accessible through fly.io host
+- Test that the server actually shuts off after 60s
 - Configure fly.io to maintain persitant storage in the minecraft worldfile directory
 
 ### References
