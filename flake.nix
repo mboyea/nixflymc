@@ -15,10 +15,9 @@
       pkgs = import nixpkgs { inherit system; };
     in rec {
       packages = {
-        server = nix-minecraft.packages.${system}.vanilla-server;
-        # server = pkgs.callPackage ./src/server.nix {
-        #   inherit name version system nix-minecraft;
-        # };
+        server = pkgs.callPackage ./src/server.nix {
+          inherit name version system nix-minecraft;
+        };
         serverImage = pkgs.callPackage ./src/server-image.nix {
           inherit name version packages apps;
         };
