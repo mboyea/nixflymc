@@ -21,6 +21,10 @@
         serverImage = pkgs.callPackage ./src/server-image.nix {
           inherit name version packages apps;
         };
+        serverContainer = pkgs.callPackage ./src/server-container.nix {
+          inherit name version;
+          image = packages.serverImage;
+        };
         deploy = pkgs.callPackage ./src/deploy.nix {
           inherit name version;
           image = packages.serverImage;
@@ -30,6 +34,7 @@
       };
       apps = {
         server = utils.lib.mkApp { drv = packages.server; };
+        serverContainer = utils.lib.mkApp { drv = packages.serverContainer; };
         deploy = utils.lib.mkApp { drv = packages.deploy; };
         default = apps.server;
       };

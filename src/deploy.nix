@@ -3,6 +3,7 @@
   runtimeInputs = [
     image
     flyConfig
+    pkgs.gzip
     pkgs.skopeo
     pkgs.flyctl
   ];
@@ -31,7 +32,7 @@
     }
 
     update_docker_image() {
-      skopeo --insecure-policy copy --dest-creds="$DOCKER_USERNAME:$DOCKER_PASSWORD" "tarball:${image}" "docker://docker.io/$DOCKER_USERNAME/${name}:${version}"
+      ${image} | gzip --fast | skopeo --insecure-policy copy --dest-creds="$DOCKER_USERNAME:$DOCKER_PASSWORD" "docker-archive:/dev/stdin" "docker://docker.io/$DOCKER_USERNAME/${name}:${version}"
     }
 
     deploy_to_fly() {

@@ -1,4 +1,4 @@
-{ dockerTools, name, version, packages, apps }: dockerTools.buildLayeredImage {
+{ dockerTools, name, version, packages, apps }: dockerTools.streamLayeredImage {
   name = "${name}-server-image";
   tag = "${version}";
   contents = [ packages.server ];
