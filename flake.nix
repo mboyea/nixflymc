@@ -41,6 +41,7 @@
       devShells.default = pkgs.mkShell {
         packages = [
           pkgs.podman
+          pkgs.gzip
           pkgs.skopeo
           pkgs.flyctl
         ];
