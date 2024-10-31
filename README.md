@@ -38,9 +38,10 @@ This project is not yet complete. No documentation is available.
 
 | command | description |
 |:--- |:--- |
-| `nix run` | run the server |
+| `nix run` | run `nix run .#server` |
+| `nix run .#server` | run the server |
+| `nix run .#serverContainer` | run the server in a Docker container |
 | `nix run .#deploy` | deploy the server to fly.io |
-| `nix build .#serverImage` | build the docker server image |
 
 ### Contribute
 
