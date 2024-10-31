@@ -8,8 +8,6 @@
     pkgs.flyctl
   ];
   text = ''
-    #!/usr/bin/env bash
-
     echoerror() { echo "Error:" "$@" 1>&2; }
 
     load_env() {

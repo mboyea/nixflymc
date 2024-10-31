@@ -5,14 +5,8 @@
     pkgs.podman
   ];
   text = ''
-    #!/usr/bin/env bash
-
-    run_docker_image() {
-      podman run docker-archive:/dev/stdin
-    }
-
-    echo "Starting docker container..."
-    run_docker_image
+    ${image} | podman image load
+    podman container run localhost/${name}-server-image:${version}
   '';
 }
 

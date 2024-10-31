@@ -19,7 +19,7 @@
           inherit name version system nix-minecraft;
         };
         serverImage = pkgs.callPackage ./src/server-image.nix {
-          inherit name version packages apps;
+          inherit name version packages;
         };
         serverContainer = pkgs.callPackage ./src/server-container.nix {
           inherit name version;
