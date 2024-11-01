@@ -50,7 +50,7 @@ Reference [this example](https://github.com/yamatt/fly-minecraft-server) of its 
 - [Clone *your forked repository*](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) from GitHub to your computer.
 - Make an account for [fly.io](https://fly.io/dashboard). Link your payment method in the account.
 - Make an account for [docker.io](https://hub.docker.com/).
-- [Install the Nix package manager)](https://nixos.org/download/).
+- [Install the Nix package manager](https://nixos.org/download/).
 - Open a terminal with access to Nix in your cloned repository folder.
 - Run `nix develop` to open a shell with access to the development tools (like `flyctl`).
 - Run `flyctl launch --no-deploy --name <minecraft-server>` where `<minecraft-server>` is the name of your minecraft server.
