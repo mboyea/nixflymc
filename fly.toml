@@ -17,3 +17,8 @@ primary_region = 'den'
   memory = '4GB'
   cpu_kind = 'shared'
   cpus = 2
+
+[[mounts]]
+  source = 'world-folder'
+  destination = '/world'
+
