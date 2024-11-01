@@ -12,8 +12,7 @@ This project is not yet complete. No documentation is available.
 
 ### TODO
 
-- Test server is accessible through fly.io host
-- Test that the server actually shuts off after 60s
+- Make the server actually shut off after 60s
 - Configure fly.io to maintain persitant storage in the minecraft worldfile directory
 
 ### References
