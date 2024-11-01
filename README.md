@@ -54,8 +54,8 @@ Reference [this example](https://github.com/yamatt/fly-minecraft-server) of its 
 - Open a terminal with access to Nix in your cloned repository folder.
 - Run `nix develop` to open a shell with access to the development tools (like `flyctl`).
 - Run `flyctl launch --no-deploy --name <minecraft-server>` where `<minecraft-server>` is the name of your minecraft server.
-- Get a dedicated IPv4 address using `flyctl ips allocate-v4`.
 - Create and modify any settings you'd like to in the server config at `src/server.nix`.
+  Probably you should update the whitelist.
 - [Create a Fly Access Token](https://fly.io/docs/security/tokens/)
 - Create a file `.env` with content:
   
@@ -66,21 +66,29 @@ Reference [this example](https://github.com/yamatt/fly-minecraft-server) of its 
   ```
   
 - Deploy the server using `nix run .#deploy'.
-- [Add those .env secrets to GitHub Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) too.
-- Now when you `git add .`, `git commit -m ""`, then `git push`, GitHub actions will automatically deploy the server for you too.
+
+You may also want to allow GitHub Actions to make deployments.
+
+- [Add those .env secrets to GitHub Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions).
+- Now when you `git add .`, `git commit -m ""`, then `git push`, GitHub actions will automatically deploy the server for you.
+
+You and your friends may be able to connect to the server using the public IPv6 address from Fly.
+However, many consumer ISP networks do not support IPv6.
+
+- [Test your IPv6 connectivity](https://ipv6-test.com/).
+  If you or any of your friends don't have access to IPv6, you'll need to get a dedicated IPv4 address from Fly.
+- Get a dedicated IPv4 address using `flyctl ips allocate-v4`.
+
+If you still can't connect to the server, [check that the server is even accessible by the IP address](https://mcsrvstat.us/).
 
 ### Scripts
 
 | command | description |
 |:--- |:--- |
 | `nix run` | run `nix run .#server` |
-| `nix run .#server` | run the server |
-| `nix run .#serverContainer` | run the server in a Docker container |
+| `nix run .#server` | run the server locally (you can connect from your home address via your PC's ip address, or publicly if port forwarding is enabled on your router and not blocked by your ISP) |
+| `nix run .#serverContainer` | run the server locally in a Docker container |
 | `nix run .#deploy` | deploy the server to fly.io |
-
-### TODO
-
-- Configure fly.io to maintain persitant storage in the minecraft worldfile directory
 
 ### Contribute
 
