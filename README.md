@@ -28,9 +28,9 @@ Fly.io is a general purpose server hosting provider that charges you only for th
 
 For example, in November 2025 I'm hosting a server for friends where:
 
-> The dedicated IPv4 address is $2/mo
-> The persist storage costs (probably a 4GB world file) are $0.15/GB/mo
-> The compute costs (shared-cpu-2x - 4GB RAM) are $0.0297/hr
+> The dedicated IPv4 address is $2/mo.
+> The persist storage costs (probably a 4GB world file) are $0.15/GB/mo.
+> The compute costs (shared-cpu-2x - 4GB RAM) are $0.0297/hr.
 > 
 > So with dedicated IPv4 ($2.00) and 4GB storage ($0.60) we would have to play the Minecraft server for more than 80 hours in a month before I'd even have to pay ($5.00) for hosting.
 
