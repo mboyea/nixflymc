@@ -19,6 +19,6 @@ primary_region = 'den'
   cpus = 2
 
 [[mounts]]
-  source = 'world-folder'
+  source = 'world_dir'
   destination = '/world'
 

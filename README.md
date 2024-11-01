@@ -57,6 +57,7 @@ Reference [this example](https://github.com/yamatt/fly-minecraft-server) of its 
 - Create and modify any settings you'd like to in the server config at `src/server.nix`.
   Probably you should update the whitelist.
 - [Create a Fly Access Token](https://fly.io/docs/security/tokens/)
+- Create the `world_dir` volume using `fly volume create world_dir -c 1`.
 - Create a file `.env` with content:
   
   ```sh
