@@ -6,11 +6,12 @@
     mkdir -p $out/bin $out/lib
     cp -r -v $src $out/lib/minecraft-server
 
-    echo "echo 'eula=TRUE' > eula.txt" > $out/bin/${pname}
-
-    cat >> $out/bin/${pname} << EOF
-      $out/lib/minecraft-server/bin/minecraft-server
+    cat > $out/bin/${pname} << EOF
+    #!/bin/bash
+    echo 'eula=TRUE' > eula.txt
+    $out/lib/minecraft-server/bin/minecraft-server
     EOF
+
     chmod +x $out/bin/${pname}
   '';
   meta.mainProgram = "${pname}";

@@ -1,7 +1,9 @@
-{ dockerTools, name, version, packages, lib }: dockerTools.streamLayeredImage {
+{ lib, pkgs, name, version, packages }: pkgs.dockerTools.streamLayeredImage {
   name = "${name}-server-image";
   tag = "${version}";
-  contents = [ packages.server ];
+  contents = [
+    packages.server
+  ];
   config = {
     Cmd = [ "${lib.getExe packages.server}" ];
     ExposedPorts = {

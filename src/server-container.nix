@@ -6,7 +6,7 @@
   ];
   text = ''
     ${image} | podman image load
-    podman container run localhost/${name}-server-image:${version}
+    podman container run --tty localhost/${name}-server-image:${version}
   '';
 }
 
