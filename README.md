@@ -8,29 +8,66 @@ default_: report
 ---
 ## A Minecraft server to be hosted by fly.io using a Nix Docker container
 
-This project is not yet complete. No documentation is available.
+I wanted to host a minecraft server for some friends.
 
-### TODO
+- It would be costly to keep my PC online 24/7.
+- If the server grows, my PC will slow down.
+- If I do anything significant with my PC, the server will slow down.
+- When I have personal network outages, it would affect everyone on the server.
+- My ISP doesn't want me hosting a public server.
 
-- Make the server actually shut off after 60s
-- Configure fly.io to maintain persitant storage in the minecraft worldfile directory
+But a Minecraft hosting provider would require me to lock in to a monthly payment plan, which seems excessive and is pretty expensive.
 
-### References
+Fly.io is a general purpose server hosting provider that charges you only for the compute and storage that your server actually uses.
 
-#### CI/CD
+- They only charge you for compute and storage costs you actually use (if nobody is playing, it doesn't cost much to host).
+- They don't charge you if your server costs less than $5/mo to host.
+- Their [prices are very reasonable](https://fly.io/docs/about/pricing/).
+- If your server gets big, you can scale up.
+- If your server is empty for a month, you don't end up paying anything at all.
 
-- https://docs.docker.com/build/ci/github-actions/share-image-jobs/
-- https://nix.dev/guides/recipes/continuous-integration-github-actions
-- https://github.com/DeterminateSystems/magic-nix-cache-action
+For example, in November 2025 I'm hosting a server for friends where:
 
-#### Nix
+> The dedicated IPv4 address is $2/mo
+> The persist storage costs (probably a 4GB world file) are $0.15/GB/mo
+> The compute costs (shared-cpu-2x - 4GB RAM) are $0.0297/hr
+> 
+> So with dedicated IPv4 ($2.00) and 4GB storage ($0.60) we would have to play the Minecraft server for more than 80 hours in a month before I'd even have to pay ($5.00) for hosting.
 
-- https://discourse.nixos.org/t/advice-on-packaging-an-app-with-a-nix-flake-nix-run/19192
+## You probably don't want to use this
 
-#### Misc
+I am manually packaging a Minecraft server into a distroless Docker image using Nix.
+This is so I have complete control as a software engineer about the code that goes into the server.
+If you don't know what that means, you don't want that.
 
-- https://github.com/LutrisEng/nix-fly-template
-- https://www.youtube.com/watch?v=5XY3K8DH55M
+There is a publicly maintained Docker image that is much easier to configure.
+I highly recommend you [use that Docker image instead](https://github.com/itzg/docker-minecraft-server).
+Reference [this example](https://github.com/yamatt/fly-minecraft-server) of its use with Fly.io to get started.
+
+## How to get started?
+
+- [Fork this repository](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo).
+- [Clone *your forked repository*](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) from GitHub to your computer.
+- Make an account for [fly.io](https://fly.io/dashboard). Link your payment method in the account.
+- Make an account for [docker.io](https://hub.docker.com/).
+- [Install the Nix package manager)](https://nixos.org/download/).
+- Open a terminal with access to Nix in your cloned repository folder.
+- Run `nix develop` to open a shell with access to the development tools (like `flyctl`).
+- Run `flyctl launch --no-deploy --name <minecraft-server>` where `<minecraft-server>` is the name of your minecraft server.
+- Get a dedicated IPv4 address using `flyctl ips allocate-v4`.
+- Create and modify any settings you'd like to in the server config at `src/server.nix`.
+- [Create a Fly Access Token](https://fly.io/docs/security/tokens/)
+- Create a file `.env` with content:
+  
+  ```sh
+  DOCKER_USERNAME="<your_docker_account_username>"
+  DOCKER_PASSWORD="<your_docker_account_password>"
+  FLY_DEPLOY_TOKEN="<your_fly_deploy_token>"
+  ```
+  
+- Deploy the server using `nix run .#deploy'.
+- [Add those .env secrets to GitHub Actions](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) too.
+- Now when you `git add .`, `git commit -m ""`, then `git push`, GitHub actions will automatically deploy the server for you too.
 
 ### Scripts
 
@@ -40,6 +77,10 @@ This project is not yet complete. No documentation is available.
 | `nix run .#server` | run the server |
 | `nix run .#serverContainer` | run the server in a Docker container |
 | `nix run .#deploy` | deploy the server to fly.io |
+
+### TODO
+
+- Configure fly.io to maintain persitant storage in the minecraft worldfile directory
 
 ### Contribute
 
