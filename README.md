@@ -65,7 +65,7 @@ Reference [this example](https://github.com/yamatt/fly-minecraft-server) of its 
   FLY_DEPLOY_TOKEN="<your_fly_deploy_token>"
   ```
   
-- Deploy the server using `nix run .#deploy'.
+- Deploy the server using `nix run .#deploy`.
 
 You may also want to allow GitHub Actions to make deployments.
 
