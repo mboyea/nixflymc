@@ -12,7 +12,6 @@ This project is not yet complete. No documentation is available.
 
 ### TODO
 
-- Make `nix run .#serverContainer` operate equivalent to `nix run .#server`
 - Test server is accessible through fly.io host
 - Test that the server actually shuts off after 60s
 - Configure fly.io to maintain persitant storage in the minecraft worldfile directory
