@@ -10,7 +10,7 @@
     finalImageTag = "1.37.0";
     sha256 = "1rwnka21y7rj8jz250ay7c6mmyja7nngl0ia1z64rbcxq4ylgdvi";
     os = "linux";
-    arch = "x86_64";
+    arch = "amd64";
   };
 in pkgs.dockerTools.streamLayeredImage {
   name = "${name}-server-image";
