@@ -36,6 +36,8 @@
         server = utils.lib.mkApp { drv = packages.server; };
         serverContainer = utils.lib.mkApp { drv = packages.serverContainer; };
         deploy = utils.lib.mkApp { drv = packages.deploy; };
+        downloadWorld = apps.server;
+        uploadWorld = apps.server;
         default = apps.server;
       };
       devShells.default = pkgs.mkShell {
@@ -45,6 +47,7 @@
           pkgs.gzip
           pkgs.skopeo
           pkgs.flyctl
+          pkgs.wireguard-tools
         ];
       };
     }
