@@ -9,7 +9,7 @@
   };
   outputs = { self, nixpkgs, utils, nix-minecraft, ... }: let
     name = "nixflymc";
-    version = "0.0.0";
+    version = "1.0.0";
   in utils.lib.eachDefaultSystem (
     system: let
       pkgs = import nixpkgs { inherit system; };
