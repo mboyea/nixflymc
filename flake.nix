@@ -33,6 +33,9 @@
           image = packages.serverImage;
           flyConfig = "./fly.toml";
         };
+        downloadWorld = pkgs.callPackage ./src/download-world.nix {
+          inherit name version;
+        };
         uploadWorld = pkgs.callPackage ./src/upload-world.nix {
           inherit name version;
         };
@@ -44,7 +47,7 @@
         serverContainer = utils.lib.mkApp { drv = packages.serverContainer; };
         deploy = utils.lib.mkApp { drv = packages.deploy; };
         uploadWorld = utils.lib.mkApp { drv = packages.uploadWorld; };
-        downloadWorld = apps.server; # TODO
+        downloadWorld = utils.lib.mkApp { drv = packages.downloadWorld; };
         default = apps.server;
       };
       devShells.default = pkgs.mkShell {

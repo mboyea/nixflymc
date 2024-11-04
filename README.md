@@ -88,8 +88,11 @@ If you still can't connect to the server, [check that the server is even accessi
 |:--- |:--- |
 | `nix run` | run `nix run .#server` |
 | `nix run .#server` | run the server locally (you can connect from your home address via your PC's ip address, or publicly if port forwarding is enabled on your router and not blocked by your ISP) |
+| `nix run .#cleanup` | delete files produced by `nix run .#server` |
 | `nix run .#serverContainer` | run the server locally in a Docker container |
 | `nix run .#deploy` | deploy the server to fly.io |
+| `nix run .#uploadWorld` | upload a world file to the server **note that this script is broken and must be performed manually** |
+| `nix run .#downloadWorld` | backup the deployed world file to the worlds folder |
 
 ### Contribute
 
