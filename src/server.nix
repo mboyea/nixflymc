@@ -65,7 +65,7 @@
   whiteList = ''
     [
       {
-        "uuid": "423c9519-abfc-4df0-a078-fb21a2de8298"
+        "uuid": "423c9519-abfc-4df0-a078-fb21a2de8298",
         "name": "YourZombieMop"
       }
     ]
@@ -73,9 +73,9 @@
   ops = ''
     [
       {
-        "uuid": "423c9519-abfc-4df0-a078-fb21a2de8298"
-        "name": "YourZombieMop"
-        "level": 4
+        "uuid": "423c9519-abfc-4df0-a078-fb21a2de8298",
+        "name": "YourZombieMop",
+        "level": 4,
         "bypassesPlayerLimit": true
       }
     ]
