@@ -6,7 +6,7 @@
     broadcast-console-to-ops=true
     broadcast-rcon-to-ops=true
     bug-report-link=
-    difficulty=easy
+    difficulty=hard
     enable-command-block=false
     enable-jmx-monitoring=false
     enable-query=false
