@@ -18,6 +18,9 @@
         server = pkgs.callPackage ./src/server.nix {
           inherit name version system nix-minecraft;
         };
+        cleanup = pkgs.callPackage ./src/cleanup.nix {
+          inherit name version;
+        };
         serverImage = pkgs.callPackage ./src/server-image.nix {
           inherit name version packages;
         };
@@ -37,10 +40,11 @@
       };
       apps = {
         server = utils.lib.mkApp { drv = packages.server; };
+        cleanup = utils.lib.mkApp { drv = packages.cleanup; };
         serverContainer = utils.lib.mkApp { drv = packages.serverContainer; };
         deploy = utils.lib.mkApp { drv = packages.deploy; };
-        downloadWorld = apps.server;
         uploadWorld = utils.lib.mkApp { drv = packages.uploadWorld; };
+        downloadWorld = apps.server; # TODO
         default = apps.server;
       };
       devShells.default = pkgs.mkShell {
