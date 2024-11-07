@@ -9,6 +9,8 @@ primary_region = 'den'
 [[services]]
   protocol = 'tcp'
   internal_port = 25565
+  auto_stop_machines = "stop"
+  auto_start_machines = true
 
 [[services.ports]]
     port = 25565
