@@ -65,6 +65,14 @@
   whiteList = ''
     [
       {
+        "uuid": "1be6e50c-3570-4bca-978e-05ec0f61790b",
+        "name": "Firstson04",
+      },
+      {
+        "uuid": "86f8096f-8998-4d36-8ef3-84ff3504f8ca",
+        "name": "xTineke99x"
+      },
+      {
         "uuid": "423c9519-abfc-4df0-a078-fb21a2de8298",
         "name": "YourZombieMop"
       }
