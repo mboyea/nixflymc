@@ -1,4 +1,4 @@
-{ stdenv, name, version, system, nix-minecraft } : let
+{ pkgs, name, version, system, nix-minecraft } : let
   serverProperties = ''
     accepts-transfers=false
     allow-flight=false
@@ -75,6 +75,10 @@
       {
         "uuid": "423c9519-abfc-4df0-a078-fb21a2de8298",
         "name": "YourZombieMop"
+      },
+      {
+        "uuid": "bc5a4d91-25f2-45c7-8fb4-198f036e8ab5",
+        "name": "Cactiguy36"
       }
     ]
   '';
@@ -93,13 +97,25 @@
     eula=TRUE
     # text after eula
   '';
-in stdenv.mkDerivation rec {
+in pkgs.stdenv.mkDerivation rec {
   pname = "${name}-server";
   inherit version;
-  src = nix-minecraft.packages.${system}.vanilla-server;
+  srcs = [
+    nix-minecraft.packages.${system}.vanilla-server
+  ];
+  unpackPhase = ''
+    get_derivation_name() {
+      dir_name=$(stripHash $1)
+      echo ''${dir_name%-*}
+    }
+    mkdir sources
+    for source in $srcs; do
+      cp -r $source sources/$(get_derivation_name $source)
+    done
+  '';
   installPhase = ''
     mkdir -p $out/bin $out/lib
-    cp -r -v $src $out/lib/minecraft-server
+    cp -r -v sources/* $out/lib/
 
     cat > $out/bin/${pname} << EOF
     #!/bin/bash
@@ -108,7 +124,7 @@ in stdenv.mkDerivation rec {
     echo '${whiteList}' > whitelist.json
     echo '${ops}' > ops.json
 
-    $out/lib/minecraft-server/bin/minecraft-server
+    exec ${pkgs.lib.getExe pkgs.screen} -S minecraft "$out/lib/minecraft-server/bin/minecraft-server"
     EOF
 
     chmod +x $out/bin/${pname}

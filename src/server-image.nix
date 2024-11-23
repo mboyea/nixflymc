@@ -18,6 +18,7 @@ in pkgs.dockerTools.streamLayeredImage {
   fromImage = base;
   contents = [
     packages.server
+    pkgs.screen
   ];
   config = {
     Cmd = [ "${lib.getExe packages.server}" ];

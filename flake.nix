@@ -58,6 +58,7 @@
           pkgs.skopeo
           pkgs.flyctl
           pkgs.wireguard-tools
+          pkgs.screen
         ];
       };
     }
