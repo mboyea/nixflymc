@@ -66,7 +66,7 @@
     [
       {
         "uuid": "1be6e50c-3570-4bca-978e-05ec0f61790b",
-        "name": "Firstson04",
+        "name": "Firstson04"
       },
       {
         "uuid": "86f8096f-8998-4d36-8ef3-84ff3504f8ca",
@@ -100,22 +100,9 @@
 in pkgs.stdenv.mkDerivation rec {
   pname = "${name}-server";
   inherit version;
-  srcs = [
-    nix-minecraft.packages.${system}.vanilla-server
-  ];
-  unpackPhase = ''
-    get_derivation_name() {
-      dir_name=$(stripHash $1)
-      echo ''${dir_name%-*}
-    }
-    mkdir sources
-    for source in $srcs; do
-      cp -r $source sources/$(get_derivation_name $source)
-    done
-  '';
+  src = ./.;
   installPhase = ''
-    mkdir -p $out/bin $out/lib
-    cp -r -v sources/* $out/lib/
+    mkdir -p $out/bin
 
     cat > $out/bin/${pname} << EOF
     #!/bin/bash
@@ -123,8 +110,11 @@ in pkgs.stdenv.mkDerivation rec {
     echo '${serverProperties}' > server.properties
     echo '${whiteList}' > whitelist.json
     echo '${ops}' > ops.json
+   
+    # "${pkgs.lib.getExe' pkgs.screen "screen"}" -S minecraft -d -m "${pkgs.lib.getExe nix-minecraft.packages.${system}.vanilla-server}"
+    # "${pkgs.lib.getExe' pkgs.screen "screen"}" -r minecraft
 
-    exec ${pkgs.lib.getExe pkgs.screen} -S minecraft "$out/lib/minecraft-server/bin/minecraft-server"
+    "${pkgs.lib.getExe nix-minecraft.packages.${system}.vanilla-server}"
     EOF
 
     chmod +x $out/bin/${pname}
