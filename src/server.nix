@@ -110,7 +110,8 @@ in pkgs.stdenv.mkDerivation rec {
     echo '${serverProperties}' > server.properties
     echo '${whiteList}' > whitelist.json
     echo '${ops}' > ops.json
-   
+    
+    # TODO implement tmux or screen
     # "${pkgs.lib.getExe' pkgs.screen "screen"}" -S minecraft -d -m "${pkgs.lib.getExe nix-minecraft.packages.${system}.vanilla-server}"
     # "${pkgs.lib.getExe' pkgs.screen "screen"}" -r minecraft
 
