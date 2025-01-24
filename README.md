@@ -33,6 +33,7 @@ For example, in November 2025 I'm hosting a server for friends where:
 > The compute costs (shared-cpu-2x - 4GB RAM) are $0.0297/hr.
 > 
 > So with dedicated IPv4 ($2.00) and 4GB storage ($0.60) we would have to play the Minecraft server for more than 80 hours in a month before I'd even have to pay ($5.00) for hosting.
+> In the worst case, the server would maximally cost under $22 to host.
 
 ## You probably don't want to use this
 
